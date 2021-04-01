@@ -1,0 +1,78 @@
+﻿.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background: white;
+    box-shadow: rgb(0 0 0 / 10%) 2px 5px 11px 5px;
+}
+
+.productDetails {
+    margin: 10px;
+}
+
+.label {
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+input[type="text"] {
+    width: 250px;
+}
+
+input[type="number"] {
+    width: 250px;
+}
+
+input[type="file"] {
+    width: 250px;
+    border: 2px solid whitesmoke;
+    padding: 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.submitButton {
+    display: flex;
+    width: 100px;
+}
+
+.submit {
+    width: 100%;
+    border: none;
+    background-color: lightblue;
+    padding: 10px;
+    margin: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+    .submit:hover {
+        box-shadow: rgba(0, 0, 0, 0.1) 5px 10px 10px;
+        transform: scale(1.1);
+        transition: all 0.3s ease;
+    }
+
+.updateContainer {
+    display: flex;
+}
+
+#editForm {
+    display: none;
+    height: fit-content;
+    padding: 20px;
+}
+
+.table {
+    width: 200px;
+}

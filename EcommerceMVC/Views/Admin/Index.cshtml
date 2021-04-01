@@ -1,6 +1,38 @@
-﻿@{
+﻿@model EcommerceMVC.ViewModel.ProductViewModel;
+@{
     ViewData["Add"] = "Add Product";
     ViewData["Edit"] = "Add Product";
 }
-<h1>@ViewData["Add"]</h1>
+
+<div style="display:flex;flex-direction : column">
+    <h1 class="header">@ViewData["Add"]</h1>
+
+    <div class="form">
+        <div class="productDetails">
+            <div class="label">product Name  </div>
+            <input type="text" id="name" autocomplete="off" />
+        </div>
+        <div class="productDetails">
+            <div class="label">product Price  </div>
+            <input type="number" id="price" autocomplete="off" />
+        </div>
+        <div class="productDetails">
+            <div class="label">product Image  </div>
+            <input type="file" id="image" @*onchange="encodeImageFileAsURL(this)"*@ />
+        </div>
+        <div class="submitButton">
+            <button class="submit" onclick="addProduct()">Add</button>
+        </div>
+    </div>
+</div>
+
+<form id="edit-role" method="post" asp-controller="Product">
+    <input class="RoleId" type="text" value="" hidden />
+    <div class="form-group">
+        @*<label asp-for=""></label>*@
+        <input class="form-control editRoleName"  value="" />
+        <span  class="text-danger"></span>
+    </div>
+</form>
+
 
