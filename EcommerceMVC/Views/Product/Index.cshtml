@@ -1,8 +1,24 @@
-﻿@{
+﻿@model EcommerceMVC.ViewModel.ProductViewModel;
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Praveen</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+@foreach (var item in Model.Products)
+{
+    <div class="products">
+        <div class="imageContainer">
+            <img class="image" src="@item.Image" />
+        </div>
+        <div class="details">
+            <div class="productName"><b>Product Name : </b>@item.ProductName</div>
+            <div class="price"><b>Product Price : </b>@item.Price</div>
+        </div>
+        <div class="addCartButtom">
+            <button class="addCart">Add To Cart</button>
+        </div>
+    </div>
+
+}
+
+

@@ -1,23 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using EcommerceMVC.Repositories;
+using EcommerceMVC.ViewModel;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace EcommerceMVC.Controllers
 {
     public class ProductController : Controller
     {
+        private readonly string connectionString;
+
+        private readonly ProductRepository repository;
+
+        public ProductController(IConfiguration configuration)
+        {
+            connectionString = configuration.GetConnectionString("connection_string");
+            repository = new ProductRepository(connectionString);
+        }
         public IActionResult Index()
         {
-            return View();
-        }
-
-        // GET: /HelloWorld/Welcome/ 
-
-        public string Welcome()
-        {
-            return "This is the Welcome action method...";
+            var products = repository.GetAll();
+            return View(new ProductViewModel()
+            {
+                Products = products.ToList()
+            });
         }
     }
 }

@@ -12,6 +12,7 @@ namespace EcommerceMVC.Models
     {
         public virtual string Name { get; set; }
         public virtual string Email { get; set; }
+        //public virtual string Role { get; set; }
         [JsonIgnore]
         public virtual IList<Product> Products { get; protected set; }
 
@@ -36,6 +37,8 @@ namespace EcommerceMVC.Models
                 .Not.Nullable();
             Map(x => x.Email)
                .Not.Nullable();
+            //Map(x => x.Role)
+            //   .Nullable();
             HasManyToMany(x => x.Products)
                  .Table("user_product");
             Table("users");
