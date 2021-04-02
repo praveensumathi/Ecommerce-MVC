@@ -17,6 +17,8 @@ namespace EcommerceMVC.Controllers
             connectionString = configuration.GetConnectionString("connection_string");
             repository = new ProductRepository(connectionString);
         }
+
+        [HttpGet]
         public IActionResult Index()
         {
             var products = repository.GetAll();

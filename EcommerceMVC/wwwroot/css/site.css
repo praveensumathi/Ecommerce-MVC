@@ -66,8 +66,7 @@ body {
 
 }
 
-.productContainer {
-    display: flex;
+.productsContainer {
     flex-wrap: wrap;
     background-color: #f2f9ff !important;
     width: -webkit-fill-available;
@@ -76,12 +75,13 @@ body {
 }
 
 
-.headerContainer {
+.headersContainer {
     display: flex;
     width: 100%;
     color: black;
     justify-content: space-between;
     padding: 0px 20px;
+    background-color:red;
     box-sizing: border-box;
 }
 
@@ -189,3 +189,16 @@ body {
     width: 200px !important;
 }
 
+.productFields {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.productList {
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+    width: -webkit-fill-available;
+}

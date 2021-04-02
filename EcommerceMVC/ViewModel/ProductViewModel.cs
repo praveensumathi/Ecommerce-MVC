@@ -1,4 +1,5 @@
 ﻿using EcommerceMVC.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,8 +17,11 @@ namespace EcommerceMVC.ViewModel
     {
 
         [Required]
+        [MinLength(5)]
         public string Name { get; set; }
+        [Required]
         public string Price { get; set; }
-        public string Image { get; set; }
+        [Required]
+        public IFormFile Image { get; set; }
     }
 }

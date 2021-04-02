@@ -1,38 +1,35 @@
 ﻿@model EcommerceMVC.ViewModel.ProductViewModel;
 @{
-    ViewData["Add"] = "Add Product";
-    ViewData["Edit"] = "Add Product";
+    ViewData["Title"] = "Product List";
 }
 
-<div style="display:flex;flex-direction : column">
-    <h1 class="header">@ViewData["Add"]</h1>
+<div class="productList">
+    <div class="header">
+        <h1 class="header">@ViewData["Title"]</h1>
+        <a class="btn btn-outline-success" href="@Url.Action("Create","Admin")">Add Product</a>
+    </div>
+    <div style="margin:20px">
+        <div class="modal-dialog-scrollable">
+            <table class="table table-hover" style="width:100%">
+                <tr>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Product Price</th>
+                    <th scope="col">Product Image</th>
+                </tr>
 
-    <div class="form">
-        <div class="productDetails">
-            <div class="label">product Name  </div>
-            <input type="text" id="name" autocomplete="off" />
+                @foreach (var item in Model.Products)
+                {
+                    <tr class="d-sm-table-row">
+                        <td>@item.ProductName</td>
+                        <td>@item.Price</td>
+                        <td><img width="100" src="@item.Image" /></td>
+                    </tr>
+
+                }
+            </table>
         </div>
-        <div class="productDetails">
-            <div class="label">product Price  </div>
-            <input type="number" id="price" autocomplete="off" />
-        </div>
-        <div class="productDetails">
-            <div class="label">product Image  </div>
-            <input type="file" id="image" @*onchange="encodeImageFileAsURL(this)"*@ />
-        </div>
-        <div class="submitButton">
-            <button class="submit" onclick="addProduct()">Add</button>
-        </div>
+
     </div>
 </div>
-
-<form id="edit-role" method="post" asp-controller="Product">
-    <input class="RoleId" type="text" value="" hidden />
-    <div class="form-group">
-        @*<label asp-for=""></label>*@
-        <input class="form-control editRoleName"  value="" />
-        <span  class="text-danger"></span>
-    </div>
-</form>
 
 
