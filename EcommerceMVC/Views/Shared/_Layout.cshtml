@@ -27,14 +27,24 @@
                             </a>
                         </li>
                         <li>
-                            <a asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
-                        </li>
-                        <li>
-                            @if(User.Identity.IsAuthenticated)
-                            { 
-                                <a asp-controller="Account" asp-action="Logout">@User.Identity.Name, Logout</a>
-                            }
-                        </li>
+                                <a asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+                            </li>
+                        @*@if (User.IsInRole("Admin"))
+                        {
+                            <li>
+                                <a asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+                            </li>
+                        }*@
+                    <li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-controller="Account" asp-action="Logout">@User.Identity.Name, Logout</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Account" asp-action="Login">Login</a>
+                        }
+                    </li>
                     </ul>
                 </div>
             </div>

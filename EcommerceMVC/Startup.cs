@@ -1,4 +1,6 @@
+using EcommerceMVC.Auth;
 using EcommerceMVC.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace EcommerceMVC
 {
@@ -32,7 +36,23 @@ namespace EcommerceMVC
                 config.UseSqlServer(connectionString);
             });
 
+            services.AddAuthentication()
+                .AddCookie(config => config.SlidingExpiration = true)
+                .AddJwtBearer("Bearer", cfg =>
+               {
+                   cfg.RequireHttpsMetadata = false;
+                   cfg.SaveToken = true;
+                   cfg.TokenValidationParameters = new TokenValidationParameters()
+                   {
+                       ValidIssuer = JwtValues.Issuer,
+                       ValidAudience = JwtValues.Audience,
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtValues.Key))
+                   };
+               });
+
             services.AddControllersWithViews();
+
+            services.AddSingleton<IJwtAuthManager>(new AuthManager());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,11 +1,16 @@
 ﻿using EcommerceMVC.Repositories;
 using EcommerceMVC.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
 
 namespace EcommerceMVC.Controllers
 {
+    
+    [Route("api/[controller]")]
+    [Authorize]
+
     public class ProductController : Controller
     {
         private readonly string connectionString;

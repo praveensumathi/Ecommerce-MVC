@@ -66,14 +66,15 @@
                 image: imagebase64
             }
 
-            fetch("/Admin/CreateProduct", {
+            console.log(item)
+            fetch("/api/Admin/CreateProduct", {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(item)
-            }).then(() => window.location.replace('/Admin/Index'))
+            }).then(() => window.location.replace('/api/Admin'))
         }
     </script>
 }

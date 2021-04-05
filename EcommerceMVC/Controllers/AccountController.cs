@@ -1,4 +1,5 @@
-﻿using EcommerceMVC.Models;
+﻿using EcommerceMVC.Auth;
+using EcommerceMVC.Models;
 using EcommerceMVC.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -10,11 +11,13 @@ namespace EcommerceMVC.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IJwtAuthManager _jwtAuthManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signManager,IJwtAuthManager jwtAuthManager)
         {
+             _jwtAuthManager = jwtAuthManager;
             _userManager = userManager;
             _signManager = signManager;
         }
@@ -47,9 +50,11 @@ namespace EcommerceMVC.Controllers
 
                     if(result.Succeeded)
                     {
-                        return RedirectToAction("Index", "Product");
+                        return RedirectToAction("Login");
                     }
                 }
+
+                return View("Index");
             }
             catch (Exception ex)
             {
@@ -73,7 +78,11 @@ namespace EcommerceMVC.Controllers
             var result = await _signManager.PasswordSignInAsync(loginViewModel.userName, loginViewModel.Password,false,false);
             if(result.Succeeded)
             {
-                return RedirectToAction("Index", "Product");
+                var token = _jwtAuthManager.Authenticate(loginViewModel.userName, loginViewModel.Password);
+                if(token != null)
+                {
+                    return RedirectToAction("Index", "Product");
+                }
             }
             else
             {
@@ -90,5 +99,7 @@ namespace EcommerceMVC.Controllers
             await _signManager.SignOutAsync();
             return RedirectToAction("index");
         }
+
+        
     }
 }
