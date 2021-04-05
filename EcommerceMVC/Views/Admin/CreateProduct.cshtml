@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewData["Title"] = "CreateProduct";
+}
+
+<div style="display : flex;flex-direction : column">
+    <h1>CreateProduct</h1>
+
+    <hr />
+    <div class="row">
+        <div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Product Name</label>
+                <input name="ProductName" id="name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Price</label>
+                <input name="Price" id="price" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Image</label>
+                <div class="custom-file">
+                    <input type="file" class="form-control custom-file-input" />
+                    <label class="custom-file-label">Choose file..</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" onclick="addProduct()" value="Create" class="btn btn-primary" />
+            </div>
+            <div class="form-group">
+                <img id="image"/>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        var imagebase64 = "";
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var file = this.files[0];
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    imagebase64 = reader.result;
+                    $("#image").attr("src", imagebase64).css("width", '200px').css("height", 'auto');
+                }
+                reader.readAsDataURL(file);
+
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+        })
+
+        function addProduct() {
+            var item = {
+                ProductName: document.getElementById("name").value,
+                Price: Number(document.getElementById("price").value),
+                image: imagebase64
+            }
+
+            fetch("/Admin/CreateProduct", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(item)
+            }).then(() => window.location.replace('/Admin/Index'))
+        }
+    </script>
+}

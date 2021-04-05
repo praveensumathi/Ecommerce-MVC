@@ -1,11 +1,13 @@
-﻿using EcommerceMVC.Repositories;
+﻿using EcommerceMVC.Models;
+using EcommerceMVC.Repositories;
 using EcommerceMVC.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
+using System.IO;
+using System.Drawing;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace EcommerceMVC.Controllers
 {
@@ -31,9 +33,56 @@ namespace EcommerceMVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult CreateProduct()
         {
-            return View(new ProductInpuModel());
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateProduct([FromBody]Product product)
+        {
+            repository.Create(product);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult UpdateProduct(int id)
+        {
+            Product product = repository.GetById(id);
+            return View(product);
+        }
+
+        [HttpPut]
+        public IActionResult UpdateProduct(int id, [FromBody] Product product)
+        {
+            Product currentProduct = repository.GetById(id);
+
+            if (currentProduct.Equals(product))
+            {
+                return View("Index");
+            }
+
+            currentProduct.ProductName = product.ProductName;
+            currentProduct.Price = product.Price;
+            currentProduct.Image = product.Image;
+
+            repository.Update(currentProduct);
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpGet]
+        public IActionResult DeleteProduct(int id)
+        {
+            Product product = repository.GetById(id);
+            if (product == null)
+            {
+                return NotFound("No Products Found");
+            }
+
+            repository.Delete(product);
+            return RedirectToAction("Index");
         }
     }
 }

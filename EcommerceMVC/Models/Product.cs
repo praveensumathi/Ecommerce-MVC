@@ -12,7 +12,7 @@ namespace EcommerceMVC.Models
         public virtual string ProductName { get; set; }
         public virtual float Price { get; set; }
         public virtual string Image { get; set; }
-        public virtual IList<User> Users { get; protected set; }
+        public virtual IList<ApplicationUser> Users { get; protected set; }
 
     }
 

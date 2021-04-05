@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceMVC.Repositories
 {
-    public class UserRepository : Repository<User>
+    public class UserRepository : Repository<ApplicationUser>
     {
         public UserRepository(string connectionString) :
            base(Helper.OpenSession(connectionString))
@@ -15,9 +15,9 @@ namespace EcommerceMVC.Repositories
 
         }
 
-        public User updateUserProduct(long id, Product product)
+        public ApplicationUser updateUserProduct(long id, Product product)
         {
-            User user = this.GetById(id);
+            ApplicationUser user = this.GetById(id);
 
             user.Products.Add(product);
             Session.Update(user);

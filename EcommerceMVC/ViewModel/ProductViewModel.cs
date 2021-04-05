@@ -20,7 +20,7 @@ namespace EcommerceMVC.ViewModel
         [MinLength(5)]
         public string Name { get; set; }
         [Required]
-        public string Price { get; set; }
+        public float Price { get; set; }
         [Required]
         public IFormFile Image { get; set; }
     }

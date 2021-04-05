@@ -6,7 +6,7 @@
 <div class="productList">
     <div class="header">
         <h1 class="header">@ViewData["Title"]</h1>
-        <a class="btn btn-outline-success" href="@Url.Action("Create","Admin")">Add Product</a>
+        <a class="btn btn-outline-success" href="@Url.Action("CreateProduct","Admin")">Add Product</a>
     </div>
     <div style="margin:20px">
         <div class="modal-dialog-scrollable">
@@ -15,6 +15,7 @@
                     <th scope="col">Product Name</th>
                     <th scope="col">Product Price</th>
                     <th scope="col">Product Image</th>
+                    <th scope="col">Actions</th>
                 </tr>
 
                 @foreach (var item in Model.Products)
@@ -23,6 +24,10 @@
                         <td>@item.ProductName</td>
                         <td>@item.Price</td>
                         <td><img width="100" src="@item.Image" /></td>
+                        <td>
+                            <a class="btn btn-outline-info" href="@Url.Action("UpdateProduct","Admin",new { id = item.Id})">Edit</a>
+                            <a class="btn btn-outline-danger" href="@Url.Action("DeleteProduct","Admin",new { id = item.Id})">Delete</a>
+                        </td>
                     </tr>
 
                 }

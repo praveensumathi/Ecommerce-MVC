@@ -50,6 +50,9 @@ button.accept-policy {
     line-height: inherit;
 }
 
+.custom-file{
+    display:block !important;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -81,7 +84,6 @@ body {
     color: black;
     justify-content: space-between;
     padding: 0px 20px;
-    background-color:red;
     box-sizing: border-box;
 }
 
