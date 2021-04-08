@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace EcommerceMVC.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     [Route("api/[controller]")]
     public class AdminController : Controller
     {

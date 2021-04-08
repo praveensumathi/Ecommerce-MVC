@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceMVC.Models
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser,AppRole,int>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, AppRole, int>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
         {

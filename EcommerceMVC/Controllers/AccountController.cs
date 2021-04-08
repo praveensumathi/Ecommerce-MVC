@@ -15,7 +15,10 @@ namespace EcommerceMVC.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signManager,IJwtAuthManager jwtAuthManager)
+        public AccountController(UserManager<ApplicationUser> userManager, 
+            SignInManager<ApplicationUser> signManager,
+            IJwtAuthManager jwtAuthManager
+            )
         {
              _jwtAuthManager = jwtAuthManager;
             _userManager = userManager;
@@ -50,6 +53,12 @@ namespace EcommerceMVC.Controllers
 
                     if(result.Succeeded)
                     {
+                        //IdentityResult result1 = await _userManager.AddToRoleAsync(user, "Admin");
+
+                        //if(result1.Succeeded)
+                        //{
+                        //    return RedirectToAction("Login");
+                        //}
                         return RedirectToAction("Login");
                     }
                 }
