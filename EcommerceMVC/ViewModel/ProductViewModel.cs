@@ -22,6 +22,6 @@ namespace EcommerceMVC.ViewModel
         [Required]
         public float Price { get; set; }
         [Required]
-        public IFormFile Image { get; set; }
+        public string Image { get; set; }
     }
 }

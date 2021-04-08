@@ -82,15 +82,10 @@ namespace EcommerceMVC.Controllers
             return View(product);
         }
 
-        [HttpPut("UpdateProduct")]
+        [HttpPost("UpdateProduct")]
         public IActionResult UpdateProduct(Product product)
         {
             Product currentProduct = repository.GetById(product.Id);
-
-            if (currentProduct.Equals(product))
-            {
-                return View("Index");
-            }
 
             currentProduct.ProductName = product.ProductName;
             currentProduct.Price = product.Price;

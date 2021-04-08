@@ -9,16 +9,21 @@
     <hr />
     <div class="row">
         <div>
-            <form asp-action="UpdateProduct">
+            <form asp-action="UpdateProduct" asp-controller="Admin" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group" style="display : none">
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" id="id" value="@Model.Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
                 <div class="form-group">
                     <label asp-for="ProductName" class="control-label"></label>
-                    <input asp-for="ProductName" value="@Model.ProductName" class="form-control" />
+                    <input asp-for="ProductName" id="name" value="@Model.ProductName" class="form-control" />
                     <span asp-validation-for="ProductName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Price" class="control-label"></label>
-                    <input asp-for="Price" value="@Model.Price" class="form-control" />
+                    <input asp-for="Price" id="price" value="@Model.Price" class="form-control" />
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -28,10 +33,15 @@
                         <label class="custom-file-label">Choose file..</label>
                     </div>
                 </div>
+                <div class="form-group" style="display : none">
+                    <label asp-for="Image" class="control-label"></label>
+                    <input asp-for="Image" id="images" value="@Model.Image" class="form-control" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-primary" />
                 </div>
-                <img src="@Model.Image" width="200" height="200" />
+                <img src="@Model.Image" id="image" width="200" height="200" />
             </form>
         </div>
     </div>
@@ -45,6 +55,7 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
+        var imagebase64 = "";
         $(document).ready(function () {
             $('.custom-file-input').on("change", function () {
                 var file = this.files[0];
@@ -52,6 +63,8 @@
                 reader.onloadend = function () {
                     imagebase64 = reader.result;
                     $("#image").attr("src", imagebase64).css("width", '200px').css("height", 'auto');
+                    $("#images").val(imagebase64)
+                    console.log(document.getElementById("image"))
                 }
                 reader.readAsDataURL(file);
 
