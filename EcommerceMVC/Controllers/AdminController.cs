@@ -34,10 +34,7 @@ namespace EcommerceMVC.Controllers
         public IActionResult Index()
         {
             var products = _applicationDbContext.Products.ToList();
-            return View(new ProductViewModel()
-            {
-                Products = products
-            });
+            return View(products);
         }
 
         [HttpGet("CreateProduct")]

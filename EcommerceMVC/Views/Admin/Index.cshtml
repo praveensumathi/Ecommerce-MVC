@@ -1,4 +1,4 @@
-﻿@model EcommerceMVC.ViewModel.ProductViewModel;
+﻿@model IEnumerable<EcommerceMVC.Models.Product>;
 @{
     ViewData["Title"] = "Product List";
 }
@@ -18,9 +18,9 @@
                     <th scope="col">Actions</th>
                 </tr>
 
-                @foreach (var item in Model.Products)
-                {
 
+                @foreach (var item in Model)
+                {
                     <tr class="d-sm-table-row">
                         <td>@item.ProductName</td>
                         <td>@item.Price</td>
@@ -31,6 +31,7 @@
                         </td>
                     </tr>
                 }
+
             </table>
         </div>
 

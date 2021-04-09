@@ -8,7 +8,7 @@ namespace EcommerceMVC.Models
     public class ApplicationUser : IdentityUser<int>
     {
         [JsonIgnore]
-        public virtual IList<Product> Products { get; protected set; }
+        public virtual IList<Product> Products { get; set; }
 
         public ApplicationUser()
         {
