@@ -204,3 +204,12 @@ body {
     width: inherit;
     width: -webkit-fill-available;
 }
+
+.searchResult {
+    height: 300px;
+    overflow: auto;
+    z-index: 10;
+    position: absolute;
+    width: inherit;
+    background-color: #f2f9ff !important;
+}

@@ -5,7 +5,9 @@
 
 <div style="display : flex;flex-direction : column">
     <h1>CreateProduct</h1>
-
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
     <hr />
     <div class="row">
         <div>
@@ -29,13 +31,9 @@
                 <input type="submit" onclick="addProduct()" value="Create" class="btn btn-primary" />
             </div>
             <div class="form-group">
-                <img id="image"/>
+                <img id="image" />
             </div>
         </div>
-    </div>
-
-    <div>
-        <a asp-action="Index">Back to List</a>
     </div>
 </div>
 
@@ -57,6 +55,10 @@
                 var fileName = $(this).val().split("\\").pop();
                 $(this).next('.custom-file-label').html(fileName);
             });
+
+            if (document.getElementById("name").value) {
+                console.log(document.getElementById("name").value)
+            }
         })
 
         function addProduct() {
@@ -66,7 +68,6 @@
                 image: imagebase64
             }
 
-            console.log(item)
             fetch("/api/Admin/CreateProduct", {
                 method: 'POST',
                 headers: {
@@ -74,7 +75,7 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(item)
-            }).then(() => window.location.replace('/api/Admin'))
+            }).then((response) => window.location.replace('/api/Admin'))
         }
     </script>
 }

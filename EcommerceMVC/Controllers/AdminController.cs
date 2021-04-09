@@ -34,7 +34,6 @@ namespace EcommerceMVC.Controllers
         public IActionResult Index()
         {
             var products = _applicationDbContext.Products.ToList();
-            //var products = repository.GetAll();
             return View(new ProductViewModel()
             {
                 Products = products
@@ -47,31 +46,11 @@ namespace EcommerceMVC.Controllers
             return View();
         }
 
-        [HttpPost("AddRole")]
-        public async Task<IActionResult> AddRole(string id, string role)
-        {
-            ApplicationUser user = await _userManager.FindByIdAsync("1");
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            IdentityResult result = await _userManager.AddToRoleAsync(user, "Admin");
-
-            if (!result.Succeeded)
-            {
-                return BadRequest();
-            }
-            return Ok();
-        }
-
         [HttpPost("CreateProduct")]
         public async Task<IActionResult> CreateProduct([FromBody] Product product)
         {
             _applicationDbContext.Products.Add(product);
             await _applicationDbContext.SaveChangesAsync();
-            //repository.Create(product);
             return View("Index");
         }
 

@@ -4,8 +4,11 @@
     ViewData["Title"] = "UpdateProduct";
 }
 
-<div style="display:flex;flex-direction : column">
+<div style="display:flex;flex-direction : column;width : 100%;align-items : center">
     <h1>UpdateProduct</h1>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
     <hr />
     <div class="row">
         <div>
@@ -44,10 +47,6 @@
                 <img src="@Model.Image" id="image" width="200" height="200" />
             </form>
         </div>
-    </div>
-
-    <div>
-        <a asp-action="Index">Back to List</a>
     </div>
 </div>
 
