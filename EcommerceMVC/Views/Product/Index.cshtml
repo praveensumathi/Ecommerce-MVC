@@ -15,7 +15,7 @@
             </button>
         </div>
     </div>
-    <div style="height:300px;overflow : auto" class="searchResult">
+    <div style="height:300px;overflow : auto;display : block;margin-top:4px" id="searchResult">
         <ul id="myUL">
             @foreach (var item in Model.Products)
             {
@@ -60,23 +60,31 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
 
-    var myArray = [];
+        var search = document.getElementById("searchResult");
+        var input = document.getElementById("search-input");
 
-    @foreach (var d in Model.Products)
-    {
-        @:myArray.push("@d.ProductName");
-    }
-
-    console.log(myArray);
+        if (input.value !== "") {
+            search.style.display = "";
+        } else {
+            search.style.display = "none";
+        }
+    
         function myFunction() {
             var input = document.getElementById("search-input");
             var filter = input.value.toUpperCase();
             ul = document.getElementById("myUL");
             li = ul.getElementsByTagName("li");
 
+            if (input.value !== "") {
+                search.style.display = "";
+            } else {
+                search.style.display = "none";
+            }
+
             for (var i = 0; i < li.length; i++) {
                 var textValue = li[i].textContent || li[i].innerText;
                 if (textValue.toUpperCase().indexOf(filter) > -1) {
+                    
                     li[i].style.display = "";
                 } else {
                     li[i].style.display = "none";

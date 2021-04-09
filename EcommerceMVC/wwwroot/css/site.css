@@ -205,9 +205,9 @@ body {
     width: -webkit-fill-available;
 }
 
-.searchResult {
+#searchResult {
     height: auto;
-    max-height: 300px;
+    max-height: 350px;
     overflow: auto;
     z-index: 10;
     position: absolute;
