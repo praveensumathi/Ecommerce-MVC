@@ -1,6 +1,8 @@
 ﻿@model EcommerceMVC.ViewModel.ProductViewModel;
+@using System.Text;
 @{
     ViewData["Title"] = "Home Page";
+    var products = Model.Products;
 }
 
 <div class="input-group" style="display: block;margin: 0px 100px;">
@@ -14,51 +16,72 @@
         </div>
     </div>
     <div style="height:300px;overflow : auto" class="searchResult">
-        @foreach (var item in Model.Products)
-        {
-
-            <div style="display: flex;margin: 10px;justify-content: space-between;">
-                <div style="display:flex">
-                    <img width="50" src="@item.Image" />
-                    <div style="display : flex;flex-direction : column;padding-left:20px">
-                        <div class="productName"><b>Product Name : </b>@item.ProductName</div>
-                        <div class="price"><b>Product Price : </b>@item.Price</div>
+        <ul id="myUL">
+            @foreach (var item in Model.Products)
+            {
+            <li style="list-style:none;display : block">
+                <div style="display: flex;margin: 10px;justify-content: space-between;">
+                    <div style="display:flex">
+                        <img width="50" src="@item.Image" />
+                        <div style="display : flex;flex-direction : column;padding-left:20px">
+                            <div class="productName"><b>Product Name : </b>@item.ProductName</div>
+                            <div class="price"><b>Product Price : </b>@item.Price</div>
+                        </div>
+                    </div>
+                    <div class="addCartButtom">
+                        <button class="addCart">Add To Cart</button>
                     </div>
                 </div>
-                <div class="addCartButtom">
-                    <button class="addCart">Add To Cart</button>
-                </div>
-            </div>
-
-        }
+            </li>
+            }
+        </ul>
     </div>
 </div>
 
-    @foreach (var item in Model.Products)
-    {
-        <div class="products">
-            <div class="imageContainer">
-                <img class="image" src="@item.Image" />
-            </div>
-            <div class="details">
-                <div class="productName"><b>Product Name : </b>@item.ProductName</div>
-                <div class="price"><b>Product Price : </b>@item.Price</div>
-            </div>
-            <div class="addCartButtom">
-                <button class="addCart">Add To Cart</button>
-            </div>
+@foreach (var item in Model.Products)
+{
+    <div class="products">
+        <div class="imageContainer">
+            <img class="image" src="@item.Image" />
         </div>
+        <div class="details">
+            <div class="productName"><b>Product Name : </b>@item.ProductName</div>
+            <div class="price"><b>Product Price : </b>@item.Price</div>
+        </div>
+        <div class="addCartButtom">
+            <button class="addCart">Add To Cart</button>
+        </div>
+    </div>
 
-    }
+}
 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-        function myFunction() {
-            var input, filter;
 
-            input = document.getElementById("search-input")
+    var myArray = [];
+
+    @foreach (var d in Model.Products)
+    {
+        @:myArray.push("@d.ProductName");
+    }
+
+    console.log(myArray);
+        function myFunction() {
+            var input = document.getElementById("search-input");
+            var filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+            li = ul.getElementsByTagName("li");
+
+            for (var i = 0; i < li.length; i++) {
+                var textValue = li[i].textContent || li[i].innerText;
+                if (textValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
         }
     </script>
 }
