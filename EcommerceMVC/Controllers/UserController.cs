@@ -1,26 +1,23 @@
 ﻿using EcommerceMVC.Models;
-using EcommerceMVC.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EcommerceMVC.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly string connectionString;
-        private readonly UserRepository repository;
 
-        public UserController(IConfiguration configuration,ApplicationDbContext applicationDbContext,
+        public UserController(IConfiguration configuration, ApplicationDbContext applicationDbContext,
             UserManager<ApplicationUser> userManager)
         {
-            connectionString = configuration.GetConnectionString("connection_string");
-            repository = new UserRepository(connectionString);
             _applicationDbContext = applicationDbContext;
             _userManager = userManager;
         }
@@ -28,14 +25,20 @@ namespace EcommerceMVC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            List<Product> userProduct = new List<Product>();
+
             ApplicationUser user = _userManager.FindByNameAsync(User.Identity.Name).Result;
 
-            var product = _applicationDbContext.Users.FirstOrDefault((x) => x.Id == user.Id).Products.ToList();
-            return View(product);
+            _applicationDbContext.Entry(user).Collection(x => x.Products).Load();
+
+            foreach (Product product in user.Products)
+            {
+                userProduct.Add(product);
+            }
+            return View(userProduct);
         }
 
         [HttpGet("AddToCart")]
-        [AllowAnonymous]
         public IActionResult AddToCart(int id)
         {
             var product = _applicationDbContext.Product.FirstOrDefault((x) => x.Id == id);

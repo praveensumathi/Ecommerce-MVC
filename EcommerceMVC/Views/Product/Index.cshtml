@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <div class="addCartButtom">
-                            <a class="btn btn-primary" role="button" href="@Url.Action("AddToCart","User",new { id = item.Id})">Add To Cart</a>
+                            <button class="addCart" onclick="addToCart(@item.Id)"><i class="fa fa-cart-plus" aria-hidden="true" style="color : black"></i>Add To Cart</button>
                         </div>
                     </div>
                     <hr />
@@ -48,15 +48,15 @@
                 <div class="productName"><b>Product Name : </b>@item.ProductName</div>
                 <div class="price"><b>Product Price : </b>@item.Price</div>
             </div>
-            @*<div class="addCartButtom">
-                    <button class="addCart"  onclick="@Url.Action("AddToCart","User",new { id = item.Id})">Add To Cart</button>
-                </div>*@
             <div class="addCartButtom">
-                <a class="btn btn-primary" role="button" href="@Url.Action("AddToCart","User",new { id = item.Id})">Add To Cart</a>
+                <button class="addCart" onclick="addToCart(@item.Id)">
+                    <i class="fa fa-cart-plus" aria-hidden="true" style="color : black;padding-right : 5px"></i>
+                    Add To Cart
+                </button>
             </div>
         </div>
 
-     }
+    }
 </div>
 
 
@@ -93,6 +93,16 @@
                     li[i].style.display = "none";
                 }
             }
+        }
+
+        function addToCart(id) {
+            fetch(`/api/user/AddToCart?id=${id}`, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                }
+            }).then((response) => window.location.replace('/api/User'))
         }
     </script>
 }

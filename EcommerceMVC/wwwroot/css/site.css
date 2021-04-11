@@ -114,7 +114,6 @@ body {
         display: flex;
         padding: 10px 20px;
     }
-
         .navLinks ul li a:hover {
             background-color: black;
             cursor: pointer;

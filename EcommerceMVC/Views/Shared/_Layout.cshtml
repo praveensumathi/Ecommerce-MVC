@@ -18,7 +18,10 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="headersContainer">
-                <h4 class="navbar-brand" asp-area="">EcommerceMVC</h4>
+                <h4 class="navbar-brand" asp-area="" style="color:orange;font-weight:800;font-size : 24px">
+                    <i class="fa fa-shopping-bag" aria-hidden="true" style="font-size : 24px"></i>
+                    EcommerceMVC
+                </h4>
                 <div class="navLinks">
                     <ul class="navbar-nav flex-grow-1">
 
@@ -37,7 +40,7 @@
                         <li>
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <a asp-controller="Account" asp-action="Logout">@User.Identity.Name, Logout</a>
+                                <a asp-controller="Account" asp-action="Logout"><i class="fa fa-user" aria-hidden="true"></i>@User.Identity.Name, Logout</a>
                             }
                             else
                             {
