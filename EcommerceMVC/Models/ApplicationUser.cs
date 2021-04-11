@@ -18,16 +18,4 @@ namespace EcommerceMVC.Models
             Products.Add(product);
         }
     }
-
-    public class ApplicationUserMapping : ClassMap<ApplicationUser>
-    {
-        public ApplicationUserMapping()
-        {
-            Id(x => x.Id)
-               .GeneratedBy.Native();
-            HasManyToMany(x => x.Products)
-                 .Table("user_product");
-            Table("users");
-        }
-    }
 }

@@ -25,22 +25,4 @@ namespace EcommerceMVC.Models
             Products.Add(product);
         }
     }
-
-    public class UserMapping : ClassMap<User>
-    {
-        public UserMapping()
-        {
-            Id(x => x.Id)
-               .GeneratedBy.Native();
-            Map(x => x.Name)
-                .Not.Nullable();
-            Map(x => x.Email)
-               .Not.Nullable();
-            //Map(x => x.Role)
-            //   .Nullable();
-            HasManyToMany(x => x.Products)
-                 .Table("user_product");
-            Table("users");
-        }
-    }
 }

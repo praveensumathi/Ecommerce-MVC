@@ -5,7 +5,10 @@
 }
 
 <div style="display : flex;flex-direction : column;width : 100%">
-    <h1>My Cart</h1>
+    <div style="display : flex;justify-content : space-between">
+        <h1>My Cart</h1>
+        <h3>Total : @ViewBag.MyCartsCount</h3>
+    </div>
 
     <table class="table" style="width : 100%">
         <thead>

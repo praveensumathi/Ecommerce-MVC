@@ -35,6 +35,8 @@ namespace EcommerceMVC.Controllers
             {
                 userProduct.Add(product);
             }
+
+            ViewBag.MyCartsCount = userProduct.Count();
             return View(userProduct);
         }
 
@@ -47,6 +49,7 @@ namespace EcommerceMVC.Controllers
 
             _applicationDbContext.Users.FirstOrDefault((x) => x.Id == user.Id).Products.Add(product);
             _applicationDbContext.SaveChangesAsync();
+            
             return RedirectToAction("Index", "User");
         }
     }

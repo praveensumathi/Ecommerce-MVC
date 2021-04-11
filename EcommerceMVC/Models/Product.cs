@@ -15,23 +15,4 @@ namespace EcommerceMVC.Models
         public virtual IList<ApplicationUser> Users { get; protected set; }
 
     }
-
-    public class ActivityMapping : ClassMap<Product>
-    {
-        public ActivityMapping()
-        {
-            Id(x => x.Id)
-                .GeneratedBy.Native();
-            Map(x => x.ProductName)
-                .Not.Nullable();
-            Map(x => x.Price)
-                .Not.Nullable();
-            Map(x => x.Image)
-                .Not.LazyLoad();
-            HasManyToMany(x => x.Users)
-                 .Table("user_product");
-
-            Table("products");
-        }
-    }
 }
