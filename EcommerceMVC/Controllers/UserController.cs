@@ -42,7 +42,6 @@ namespace EcommerceMVC.Controllers
 
             var user = _userManager.FindByNameAsync(User.Identity.Name).Result;
 
-            //user.AddProduct(product);
             _applicationDbContext.Users.FirstOrDefault((x) => x.Id == user.Id).Products.Add(product);
             _applicationDbContext.SaveChangesAsync();
             return RedirectToAction("Index", "User");

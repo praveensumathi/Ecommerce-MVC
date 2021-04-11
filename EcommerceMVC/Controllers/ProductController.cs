@@ -10,7 +10,6 @@ namespace EcommerceMVC.Controllers
     
     [Route("api/[controller]")]
     [Authorize]
-
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _applicationDbContext;
