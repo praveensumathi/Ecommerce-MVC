@@ -50,8 +50,8 @@ button.accept-policy {
     line-height: inherit;
 }
 
-.custom-file{
-    display:block !important;
+.custom-file {
+    display: block !important;
 }
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -66,7 +66,6 @@ body {
     height: 100vh;
     box-sizing: border-box;
     background-color: #f2f9ff !important;
-
 }
 
 .productsContainer {
@@ -94,51 +93,57 @@ body {
     width: max-content;
 }
 
-    .navLinks ul {
+.wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.navLinks ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    list-style: none;
+}
+
+    .navLinks ul li a {
+        text-decoration: none;
+        color: black;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 18px;
-        font-weight: 600;
-        list-style: none;
+        padding: 10px 20px;
     }
 
-        .navLinks ul li a {
-            text-decoration: none;
-            color: black;
-            display: flex;
-            padding: 10px 20px;
-        }
-
-            .navLinks ul li a:hover {
-                background-color: black;
-                cursor: pointer;
-                color: white;
-            }
-
-            .navLinks ul li a i {
-                color: orange;
-                cursor: pointer;
-                align-items: center;
-                display: flex;
-                margin-right: 5px;
-            }
-
-        .navLinks ul li > button {
-            border: none;
+        .navLinks ul li a:hover {
+            background-color: black;
             cursor: pointer;
-            background-color: lightblue;
-            transition: all 0.3s ease;
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: 700;
+            color: white;
         }
 
-            .navLinks ul li > button:hover {
-                box-shadow: rgba(0, 0, 0, 0.1) 5px 10px 10px;
-                transform: scale(1.1);
-                transition: all 0.3s ease;
-            }
+        .navLinks ul li a i {
+            color: orange;
+            cursor: pointer;
+            align-items: center;
+            display: flex;
+            margin-right: 5px;
+        }
+
+    .navLinks ul li > button {
+        border: none;
+        cursor: pointer;
+        background-color: lightblue;
+        transition: all 0.3s ease;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+        .navLinks ul li > button:hover {
+            box-shadow: rgba(0, 0, 0, 0.1) 5px 10px 10px;
+            transform: scale(1.1);
+            transition: all 0.3s ease;
+        }
 
 .products {
     display: flex;
@@ -167,7 +172,7 @@ body {
 }
 
 .addCart {
-    padding: 10px;
+    padding: 6px 12px;
     background-color: orange;
     font-size: 14px;
     font-weight: 700;
@@ -176,11 +181,26 @@ body {
     border-radius: 5px;
 }
 
-    .addCart:hover {
-        box-shadow: rgba(0, 0, 0, 0.1) 5px 10px 10px;
-        transform: scale(1.1);
-        transition: all 0.1s ease;
+.addCart:hover {
+    box-shadow: rgba(0, 0, 0, 0.1) 5px 10px 10px;
+    transform: scale(1.1);
+    transition: all 0.1s ease;
+    text-decoration: none;
+}
+
+    .addCartButtom .btn-primary {
+        background-color: orange !important;
+        font-size: 14px;
+        border: 2px solid orange !important;
+        font-weight: 700;
+        color : black;
     }
+
+        .addCartButtom .btn-primary:hover {
+            box-shadow: rgba(0, 0, 0, 0.1) 5px 10px 10px;
+            transform: scale(1.1);
+            transition: all 0.1s ease;
+        }
 
 .imageContainer {
     height: 280px;
@@ -202,7 +222,6 @@ body {
     display: flex;
     flex-direction: column;
     width: inherit;
-    width: -webkit-fill-available;
 }
 
 #searchResult {
@@ -212,5 +231,7 @@ body {
     z-index: 10;
     position: absolute;
     width: inherit;
-    background-color: #f2f9ff !important;
+    background-color: white !important;
+    transition: 2s ease-in;
+    box-shadow: rgba(0, 0, 0, 0.1) 5px 10px 10px;
 }

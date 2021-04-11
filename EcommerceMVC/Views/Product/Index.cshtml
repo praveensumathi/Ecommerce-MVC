@@ -1,8 +1,6 @@
 ﻿@model EcommerceMVC.ViewModel.ProductViewModel;
-@using System.Text;
 @{
     ViewData["Title"] = "Home Page";
-    var products = Model.Products;
 }
 
 <div class="input-group" style="display: block;margin: 0px 100px;">
@@ -19,48 +17,52 @@
         <ul id="myUL" style="padding: 10px;">
             @foreach (var item in Model.Products)
             {
-            <li style="list-style:none;display : block">
-                <div style="display: flex;margin: 10px;justify-content: space-between;">
-                    <div style="display:flex">
-                        <img width="50" src="@item.Image" />
-                        <div style="display : flex;flex-direction : column;padding-left:20px">
-                            <div class="productName"><b>Product Name : </b>@item.ProductName</div>
-                            <div class="price"><b>Product Price : </b>@item.Price</div>
+                <li style="list-style:none;display : block">
+                    <div style="display: flex;margin: 10px;justify-content: space-between;">
+                        <div style="display:flex">
+                            <img width="50" src="@item.Image" />
+                            <div style="display : flex;flex-direction : column;padding-left:20px">
+                                <div class="productName"><b>Product Name : </b>@item.ProductName</div>
+                                <div class="price"><b>Product Price : </b>@item.Price</div>
+                            </div>
+                        </div>
+                        <div class="addCartButtom">
+                            <a class="btn btn-primary" role="button" href="@Url.Action("AddToCart","User",new { id = item.Id})">Add To Cart</a>
                         </div>
                     </div>
-                    <div class="addCartButtom">
-                        <button class="addCart">Add To Cart</button>
-                    </div>
-                </div>
-                <hr />
-            </li>
+                    <hr />
+                </li>
             }
         </ul>
     </div>
 </div>
 
-@foreach (var item in Model.Products)
-{
-    <div class="products">
-        <div class="imageContainer">
-            <img class="image" src="@item.Image" />
+<div class="wrapper">
+    @foreach (var item in Model.Products)
+    {
+        <div class="products">
+            <div class="imageContainer">
+                <img class="image" src="@item.Image" />
+            </div>
+            <div class="details">
+                <div class="productName"><b>Product Name : </b>@item.ProductName</div>
+                <div class="price"><b>Product Price : </b>@item.Price</div>
+            </div>
+            @*<div class="addCartButtom">
+                    <button class="addCart"  onclick="@Url.Action("AddToCart","User",new { id = item.Id})">Add To Cart</button>
+                </div>*@
+            <div class="addCartButtom">
+                <a class="btn btn-primary" role="button" href="@Url.Action("AddToCart","User",new { id = item.Id})">Add To Cart</a>
+            </div>
         </div>
-        <div class="details">
-            <div class="productName"><b>Product Name : </b>@item.ProductName</div>
-            <div class="price"><b>Product Price : </b>@item.Price</div>
-        </div>
-        <div class="addCartButtom">
-            <button class="addCart">Add To Cart</button>
-        </div>
-    </div>
 
-}
+     }
+</div>
 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-
         var search = document.getElementById("searchResult");
         var input = document.getElementById("search-input");
 
@@ -69,7 +71,7 @@
         } else {
             search.style.display = "none";
         }
-    
+
         function myFunction() {
             var input = document.getElementById("search-input");
             var filter = input.value.toUpperCase();
@@ -85,7 +87,7 @@
             for (var i = 0; i < li.length; i++) {
                 var textValue = li[i].textContent || li[i].innerText;
                 if (textValue.toUpperCase().indexOf(filter) > -1) {
-                    
+
                     li[i].style.display = "";
                 } else {
                     li[i].style.display = "none";

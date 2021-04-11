@@ -1,4 +1,4 @@
-﻿using EcommerceMVC.Repositories;
+﻿using EcommerceMVC.Models;
 using EcommerceMVC.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,23 +13,21 @@ namespace EcommerceMVC.Controllers
 
     public class ProductController : Controller
     {
-        private readonly string connectionString;
+        private readonly ApplicationDbContext _applicationDbContext;
 
-        private readonly ProductRepository repository;
-
-        public ProductController(IConfiguration configuration)
+        public ProductController(IConfiguration configuration,
+            ApplicationDbContext applicationDbContext)
         {
-            connectionString = configuration.GetConnectionString("connection_string");
-            repository = new ProductRepository(connectionString);
+            _applicationDbContext = applicationDbContext;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            var products = repository.GetAll();
+            var products = _applicationDbContext.Product.ToList();
             return View(new ProductViewModel()
             {
-                Products = products.ToList()
+                Products = products
             });
         }
     }

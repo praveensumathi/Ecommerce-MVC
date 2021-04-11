@@ -1,13 +1,11 @@
 ﻿using FluentNHibernate.Mapping;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace EcommerceMVC.Models
 {
     public class ApplicationUser : IdentityUser<int>
     {
-        [JsonIgnore]
         public virtual IList<Product> Products { get; set; }
 
         public ApplicationUser()

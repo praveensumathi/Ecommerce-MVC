@@ -1,6 +1,5 @@
 ﻿using EcommerceMVC.Models;
 using EcommerceMVC.Repositories;
-using EcommerceMVC.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
@@ -30,10 +29,11 @@ namespace EcommerceMVC.Controllers
             _applicationDbContext = applicationDbContext;
             _userManager = userManager;
         }
+
         [HttpGet]
         public IActionResult Index()
         {
-            var products = _applicationDbContext.Products.ToList();
+            var products = _applicationDbContext.Product.ToList();
             return View(products);
         }
 
@@ -46,7 +46,7 @@ namespace EcommerceMVC.Controllers
         [HttpPost("CreateProduct")]
         public async Task<IActionResult> CreateProduct([FromBody] Product product)
         {
-            _applicationDbContext.Products.Add(product);
+            _applicationDbContext.Add<Product>(product);
             await _applicationDbContext.SaveChangesAsync();
             return View("Index");
         }
@@ -54,34 +54,35 @@ namespace EcommerceMVC.Controllers
         [HttpGet("UpdateProduct")]
         public IActionResult UpdateProduct(int id)
         {
-            Product product = repository.GetById(id);
+            Product product = _applicationDbContext.Product.FirstOrDefault((x) => x.Id == id);
             return View(product);
         }
 
         [HttpPost("UpdateProduct")]
-        public IActionResult UpdateProduct(Product product)
+        public async Task<IActionResult> UpdateProduct(Product product)
         {
-            Product currentProduct = repository.GetById(product.Id);
+            Product currentProduct = _applicationDbContext.Product.FirstOrDefault((x) => x.Id == product.Id);
 
             currentProduct.ProductName = product.ProductName;
             currentProduct.Price = product.Price;
             currentProduct.Image = product.Image;
 
-            repository.Update(currentProduct);
+            await _applicationDbContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
 
         [HttpGet("DeleteProduct")]
-        public IActionResult DeleteProduct(int id)
+        public async Task<IActionResult> DeleteProduct(int id)
         {
-            Product product = repository.GetById(id);
+            Product product = _applicationDbContext.Product.FirstOrDefault((x) => x.Id == id);
             if (product == null)
             {
                 return NotFound("No Products Found");
             }
 
-            repository.Delete(product);
+            _applicationDbContext.Remove(product);
+            await _applicationDbContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
     }

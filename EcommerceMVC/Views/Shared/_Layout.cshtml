@@ -11,6 +11,8 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet"
           href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="595320647233-v86smi4ahhm9qpt9rluv81knlprkge0e.apps.googleusercontent.com">
 </head>
 <body>
     <header>
@@ -22,13 +24,10 @@
 
                         <li><a asp-area="" asp-controller="Product" asp-action="Index">Products</a></li>
                         <li>
-                            <a asp-area="" asp-controller="UserCart" asp-action="Index">
+                            <a asp-area="" asp-controller="User" asp-action="Index">
                                 <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>MyCarts
                             </a>
                         </li>
-                        @*<li>
-                    <a asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
-                </li>*@
                         @if (User.IsInRole("Admin"))
                         {
                             <li>
