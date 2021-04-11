@@ -1,11 +1,13 @@
 ﻿using EcommerceMVC.Models;
 using EcommerceMVC.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace EcommerceMVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     public class RoleController : Controller
     {
