@@ -41,12 +41,12 @@ namespace EcommerceMVC
             {
                 config.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             })
-                .AddMicrosoftAccount((config) =>
-            {
-                config.ClientId = "03333af0-3fbc-4968-b720-c0ed8427b070";
-                config.ClientSecret = "b13906c7-0afe-4a6f-8b4d-1fb8e49e2678";
-                config.TokenEndpoint = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize/";
-            })
+            //    .AddMicrosoftAccount((config) =>
+            //{
+            //    config.ClientId = "03333af0-3fbc-4968-b720-c0ed8427b070";
+            //    config.ClientSecret = "b13906c7-0afe-4a6f-8b4d-1fb8e49e2678";
+            //    config.TokenEndpoint = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize/";
+            //})
                 .AddGoogle((config) =>
                 {
                     config.ClientId = "595320647233-v86smi4ahhm9qpt9rluv81knlprkge0e.apps.googleusercontent.com";
