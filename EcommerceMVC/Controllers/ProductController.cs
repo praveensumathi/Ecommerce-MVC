@@ -8,7 +8,7 @@ using System.Linq;
 namespace EcommerceMVC.Controllers
 {
     
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
     [Authorize]
     public class ProductController : Controller
     {
@@ -21,6 +21,7 @@ namespace EcommerceMVC.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Index()
         {
             var products = _applicationDbContext.Product.ToList();

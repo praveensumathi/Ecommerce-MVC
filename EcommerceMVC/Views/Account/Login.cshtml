@@ -2,23 +2,28 @@
 
 @{
     ViewData["Title"] = "Login";
+    var retrunUrl = ViewData["ReturnUrl"] as string;
 }
 
-<div style="display : flex;flex-direction : column">
+<div>
     <h1>Login</h1>
     <hr />
-    <div class="row">
+    <div class="col-md-6">
         <div>
             <form asp-action="Login">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="ReturnUrl" value="@retrunUrl" type="hidden" />
                 <div class="form-group">
                     <label asp-for="userName" class="control-label"></label>
-                    <input asp-for="userName" class="form-control" />
+                    <input asp-for="userName" class="form-control" placeholder="User Name" new/>
                     <span asp-validation-for="userName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" />
+                    <div style="display : flex;align-items:center">
+                        <input asp-for="Password" type="password" id="password" class="form-control" autocomplete="new-password" placeholder="Password">
+                        <i class="fa fa-eye" style="margin-left : -22px;cursor : pointer" aria-hidden="true" id="togglePassword"></i>
+                    </div>
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -27,14 +32,52 @@
             </form>
         </div>
     </div>
+    <hr />
+    <div class="col-md-6">
+        <h1>External Logins</h1>
+        @{ 
+            if(Model.ExternalLogin.Count == 0)
+            {
+                <div>No external Logins</div>
+            }
+            else
+            {
+                <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+                    <div>
+                        @{ 
+                            foreach (var provider in Model.ExternalLogin)
+                            {
+                                <button type ="submit" class="btn btn-danger" name="provider" value="@provider.Name" >
+                                    @provider.DisplayName
+                                </button>
+                            }
+                        }
+                    </div>
+                </form>
+            }
+        }
+    </div>
     <div style="display : flex;justify-content : flex-end">
-        Doesn't have a Account ? 
+        Doesn't have a Account ?
         <a asp-action="Index">Register</a>
     </div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
+    });
+</script>
 }
 
 

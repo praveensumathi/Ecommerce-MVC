@@ -1,5 +1,6 @@
 using EcommerceMVC.Auth;
 using EcommerceMVC.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,7 +37,21 @@ namespace EcommerceMVC
                 config.UseSqlServer(connectionString);
             });
 
-            services.AddAuthentication()
+            services.AddAuthentication(config =>
+            {
+                config.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+                .AddMicrosoftAccount((config) =>
+            {
+                config.ClientId = "03333af0-3fbc-4968-b720-c0ed8427b070";
+                config.ClientSecret = "b13906c7-0afe-4a6f-8b4d-1fb8e49e2678";
+                config.TokenEndpoint = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize/";
+            })
+                .AddGoogle((config) =>
+                {
+                    config.ClientId = "595320647233-v86smi4ahhm9qpt9rluv81knlprkge0e.apps.googleusercontent.com";
+                    config.ClientSecret = "0lKzAZ6aixx63kLFBD0mK15B";
+                })
                 .AddCookie(config => config.SlidingExpiration = true)
                 .AddJwtBearer("Bearer", cfg =>
                {
@@ -77,7 +92,7 @@ namespace EcommerceMVC
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Account}/{action=Index}/{id?}");
+                    pattern: "{controller=Product}/{action=Index}/{id?}");
             });
         }
     }

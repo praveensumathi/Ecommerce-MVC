@@ -15,9 +15,7 @@ namespace EcommerceMVC.Controllers
     {
         private readonly string connectionString;
 
-        private readonly ProductRepository repository;
         public ApplicationDbContext _applicationDbContext;
-        private readonly UserManager<ApplicationUser> _userManager;
 
         public AdminController(IConfiguration configuration,
             ApplicationDbContext applicationDbContext, 
@@ -25,12 +23,11 @@ namespace EcommerceMVC.Controllers
             )
         {
             connectionString = configuration.GetConnectionString("connection_string");
-            repository = new ProductRepository(connectionString);
             _applicationDbContext = applicationDbContext;
-            _userManager = userManager;
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Index()
         {
             var products = _applicationDbContext.Product.ToList();
